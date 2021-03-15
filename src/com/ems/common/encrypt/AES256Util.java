@@ -1,6 +1,6 @@
-// 
+//
 // Decompiled by Procyon v0.5.36
-// 
+//
 
 package com.ems.common.encrypt;
 
@@ -18,7 +18,7 @@ public class AES256Util
 {
     private String iv;
     private Key keySpec;
-    
+
     public AES256Util(final String key) throws UnsupportedEncodingException {
         this.iv = key.substring(0, 16);
         final byte[] keyBytes = new byte[16];
@@ -31,7 +31,7 @@ public class AES256Util
         final SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
         this.keySpec = keySpec;
     }
-    
+
     public String encrypt(final String str) throws NoSuchAlgorithmException, GeneralSecurityException, UnsupportedEncodingException {
         final Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
         c.init(1, this.keySpec, new IvParameterSpec(this.iv.getBytes()));
@@ -39,22 +39,32 @@ public class AES256Util
         final String enStr = new String(Base64.encodeBase64(encrypted));
         return enStr;
     }
-    
+
     public String decrypt(final String str) throws NoSuchAlgorithmException, GeneralSecurityException, UnsupportedEncodingException {
         final Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
         c.init(2, this.keySpec, new IvParameterSpec(this.iv.getBytes()));
         final byte[] byteStr = Base64.decodeBase64(str.getBytes());
         return new String(c.doFinal(byteStr), "UTF-8");
     }
-    
+
+
+    public static String maskify(String str) {
+        return str.replaceAll(".(?=.{4})", "#");
+    }
+
+
+
     public static void main(final String[] args) {
-        try {
-            final AES256Util aes = new AES256Util("asdwsx1031902461");
-            final String str = "";
-            System.out.println(aes.decrypt(str));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            final AES256Util aes = new AES256Util("asdwsx1031902461");
+//            final String str = "";
+//            System.out.println(aes.decrypt(str));
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+    	System.out.println(maskify("01031902461"));
     }
 }

@@ -24,17 +24,24 @@ public class GMailSender
     private static final String S_HOST = "smtp.naver.com";
     private static final String S_FROM = "bookseei@naver.com";
 
-    private String ip = null ;
+    private String osName = null ;
 
     public GMailSender() {
+
         this.log = Logger.getLogger((Class)this.getClass());
-        try {
-            this.ip = InetAddress.getLocalHost().getHostAddress();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
+        Properties pr =  System.getProperties();
+
+		 osName = pr.getProperty("os.name");
+
+		log.debug("OS Name : " + pr.getProperty("os.name"));
+
+
     }
+
+
+
 
     /**
      *
@@ -45,8 +52,9 @@ public class GMailSender
      */
     public void mailSender(final String fromName , final String subject, final String to,  String content) {
 
+    	osName="linux";
 
-        if (this.ip.equals("172.29.43.44")) {
+        if (osName.equals("Windows 10")) {
             this.log.debug("개발계입니다.실제 메일을 보내지 않습니다.");
             this.log.debug(("받는사람 : " + to));
             this.log.debug(("제목 : " + subject));
@@ -88,7 +96,7 @@ public class GMailSender
                 this.log.debug("메일 발송을 완료하였습니다."); //\uba54\uc77c \ubc1c\uc1a1\uc744 \uc644\ub8cc\ud558\uc600\uc2b5\ub2c8\ub2e4.
             }
             catch (MessagingException ex) {
-                System.out.println("mail send error : " + ex.getMessage());
+            	this.log.error("mail send error : " + ex.getMessage());
             }
             catch (Exception e) {
                 this.log.error(("error : " + e.getMessage()));
@@ -99,4 +107,5 @@ public class GMailSender
     public static void main(final String[] args) throws Exception {
         new GMailSender().mailSender("테스트","hello", "fmjj007@naver.com", "hello");
     }
+
 }

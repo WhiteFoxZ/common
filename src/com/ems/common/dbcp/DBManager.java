@@ -1,6 +1,6 @@
-// 
+//
 // Decompiled by Procyon v0.5.36
-// 
+//
 
 package com.ems.common.dbcp;
 
@@ -30,14 +30,14 @@ public class DBManager
     private Logger log;
     private ArrayList<EmsMetaData> metaHash;
     private DataSource ds;
-    
+
     public DBManager(final DataSource ds) {
         this.log = Logger.getLogger((Class)this.getClass());
         this.metaHash = null;
         this.ds = null;
         this.ds = ds;
     }
-    
+
     public Connection getConnection() throws SQLException {
         this.log.debug((Object)("getConnection \uc804" + this.ds));
         final Connection con = this.ds.getConnection();
@@ -46,7 +46,7 @@ public class DBManager
         this.log.debug((Object)("con \uc815\ubcf4 ===> " + con));
         return con;
     }
-    
+
     public long selectNextSeq(final String seqName) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -90,28 +90,10 @@ public class DBManager
                 this.connClose(con);
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (con != null) {
-            this.connClose(con);
-        }
+
         return nextSeq;
     }
-    
+
     public long selectNextSeqMysql(final Connection con, final String tabname, final String colName) {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -168,25 +150,10 @@ public class DBManager
                 }
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
+
         return nextSeq;
     }
-    
+
     public long selectNextSeq(final Connection con, final String seqName) {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -242,25 +209,10 @@ public class DBManager
                 }
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
+
         return nextSeq;
     }
-    
+
     public int selectRecordCount(final String query, final String[] prString) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -304,34 +256,16 @@ public class DBManager
                 this.connClose(con);
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (con != null) {
-            this.connClose(con);
-        }
+
         return count;
     }
-    
+
     public int selectRecordCount(final String query, final Vector<?> v) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectRecordCount(query, prString);
     }
-    
+
     public int selectRecordCount(final Connection con, final String query, final String[] prString) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -387,31 +321,16 @@ public class DBManager
                 }
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
+
         return count;
     }
-    
+
     public int selectRecordCount(final Connection con, final String query, final Vector<?> v) throws SQLException {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectRecordCount(con, query, prString);
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final String query, final String[] prString) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -458,46 +377,28 @@ public class DBManager
                 this.connClose(con);
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (con != null) {
-            this.connClose(con);
-        }
+
         return hashData;
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final String query, final Vector<String> v) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectMultipleRecord(query, prString);
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final String query, final ArrayList<String> v) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectMultipleRecord(query, prString);
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final Connection con, final String query, final Vector<String> v) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectMultipleRecord(con, query, prString);
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final Connection con, final String query, final String[] prString) {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -556,30 +457,15 @@ public class DBManager
                 }
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
+
         return hashData;
     }
-    
+
     public EmsHashtable[] selectMultipleRecord(final Connection con, final String fileName, final String[] prString, final Object obj) throws Exception {
         final String q1 = this.sql(obj.getClass(), fileName);
         return this.selectMultipleRecord(con, q1, prString);
     }
-    
+
     public EmsHashtable[] selectPagingRecord(final String str, final String order, final String[] prString, final int startNum, final int lastNum) {
         final Vector<String> v1 = new Vector<String>();
         for (int i = 0; i < prString.length; ++i) {
@@ -598,7 +484,7 @@ public class DBManager
         final EmsHashtable[] hash = this.selectMultipleRecord(q1.toString(), v1);
         return hash;
     }
-    
+
     public EmsHashtable[] selectPagingRecord(final Connection con, final String str, final String order, final String[] prString, final int startNum, final int lastNum) {
         final Vector<String> v1 = new Vector<String>();
         for (int i = 0; i < prString.length; ++i) {
@@ -617,13 +503,13 @@ public class DBManager
         final EmsHashtable[] hash = this.selectMultipleRecord(con, q1.toString(), v1);
         return hash;
     }
-    
+
     public EmsHashtable[] selectPagingRecord(final String str, final String order, final Vector<?> v, final int startNum, final int lastNum) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectPagingRecord(str, order, prString, startNum, lastNum);
     }
-    
+
     public int selectPagingCount(String str, final String[] prString) {
         str = str.toUpperCase();
         str = str.replaceAll("\\t", " ");
@@ -635,7 +521,7 @@ public class DBManager
         totalCount = this.selectRecordCount(q1.toString(), prString);
         return totalCount;
     }
-    
+
     public int selectPagingCount(final Connection con, String str, final String[] prString) throws SQLException {
         str = str.toUpperCase();
         str = str.replaceAll("\\t", " ");
@@ -647,40 +533,40 @@ public class DBManager
         totalCount = this.selectRecordCount(con, q1.toString(), prString);
         return totalCount;
     }
-    
+
     public int selectPagingCount(final String str, final Vector<?> v) {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectPagingCount(str, prString);
     }
-    
+
     public int selectPagingCount(final Connection con, final String str, final Vector<?> v) throws SQLException {
         String[] prString = new String[v.size()];
         prString = v.toArray(prString);
         return this.selectPagingCount(con, str, prString);
     }
-    
+
     public int insert(final Connection con, final String query, final String[] prString) throws Exception {
         final int tf = this.excute(con, query, prString);
         return tf;
     }
-    
+
     public int update(final Connection con, final String query, final ArrayList<String> al) throws Exception {
         final String[] prString = (String[]) al.toArray(new String[al.size()]);
         final int tf = this.excute(con, query, prString);
         return tf;
     }
-    
+
     public int update(final Connection con, final String query, final String[] prString) throws Exception {
         final int tf = this.excute(con, query, prString);
         return tf;
     }
-    
+
     public int delete(final Connection con, final String query, final String[] prString) throws Exception {
         final int tf = this.excute(con, query, prString);
         return tf;
     }
-    
+
     public int add(final Connection con, final HashMap<?, ?> map, final String tableName) throws Exception {
         if (map instanceof DbHashMap) {
             this.log.debug((Object)" map instanceof DbHashMap ");
@@ -701,7 +587,7 @@ public class DBManager
         sb.append(String.valueOf(q2.substring(0, q2.lastIndexOf(","))) + " )");
         return this.insert(con, sb.toString(), prString);
     }
-    
+
     public int addGetKey(final Connection con, final HashMap<?, ?> map, final String tableName) throws Exception {
         if (map instanceof DbHashMap) {
             this.log.debug((Object)" map instanceof DbHashMap ");
@@ -722,7 +608,7 @@ public class DBManager
         sb.append(String.valueOf(q2.substring(0, q2.lastIndexOf(","))) + " )");
         return this.excuteGetKey(con, sb.toString(), prString, tableName);
     }
-    
+
     public int modify(final Connection con, final HashMap<?, String> map, final String tableName, final String whereSql, final String[] whereStr) throws Exception {
         if (map instanceof DbHashMap) {
             this.log.debug((Object)" map instanceof DbHashMap ");
@@ -745,7 +631,7 @@ public class DBManager
         sb.append(String.valueOf(q1.substring(0, q1.lastIndexOf(","))) + " where " + whereSql);
         return this.update(con, sb.toString(), prString);
     }
-    
+
     private final int excute(final Connection con, final String query, final String[] prString) throws Exception {
         int tf = -1;
         final StringBuffer pr = new StringBuffer("\n");
@@ -773,19 +659,10 @@ public class DBManager
             this.log.debug((Object)("query:[" + query + "]"));
             this.log.debug((Object)pr.toString());
         }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        this.log.debug((Object)("query:[" + query + "]"));
-        this.log.debug((Object)pr.toString());
+
         return tf;
     }
-    
+
     private final int excuteGetKey(final Connection con, final String query, final String[] prString, final String tname) throws Exception {
         int tf = -1;
         final StringBuffer pr = new StringBuffer("\n");
@@ -827,27 +704,10 @@ public class DBManager
             this.log.debug((Object)("query:[" + query + "]"));
             this.log.debug((Object)pr.toString());
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        this.log.debug((Object)("query:[" + query + "]"));
-        this.log.debug((Object)pr.toString());
+
         return tf;
     }
-    
+
     public void clobUpdate(final Connection con, final String q2, final String[] prString2, final Hashtable<?, ?> clobHash) throws Exception {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -916,24 +776,8 @@ public class DBManager
                 }
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (ps != null) {
-            try {
-                ps.close();
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
     }
-    
+
     public void commitChange(final Connection con) {
         try {
             if (con != null) {
@@ -976,21 +820,8 @@ public class DBManager
                 }
             }
         }
-        if (con != null) {
-            try {
-                con.setAutoCommit(true);
-                this.log.debug((Object)("con.close(); \uc804 " + this.ds));
-                this.log.debug((Object)("con \uc815\ubcf4 ===> " + con));
-                con.close();
-                this.log.debug((Object)("con.close(); \ud6c4 " + this.ds));
-                this.log.debug((Object)("con \uc815\ubcf4 ===> " + con));
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
     }
-    
+
     public void rollbackChange(final Connection con) {
         try {
             if (con != null) {
@@ -1033,21 +864,8 @@ public class DBManager
                 }
             }
         }
-        if (con != null) {
-            try {
-                con.setAutoCommit(true);
-                this.log.debug((Object)("con.close(); \uc804 " + this.ds));
-                this.log.debug((Object)("con \uc815\ubcf4 ===> " + con));
-                con.close();
-                this.log.debug((Object)("con.close(); \ud6c4 " + this.ds));
-                this.log.debug((Object)("con \uc815\ubcf4 ===> " + con));
-            }
-            catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
     }
-    
+
     public void loging(final String query, final String[] prString, final Exception e) {
         final StringBuffer buf = new StringBuffer();
         buf.append(this.toString()).append(" | ");
@@ -1061,13 +879,13 @@ public class DBManager
         buf.append(e.getMessage());
         this.log.debug((Object)buf.toString());
     }
-    
+
     private static void selectClobTest() {
     }
-    
+
     private static void insertClobTest() {
     }
-    
+
     public String sql(final Class<?> c, final String fileName) throws Exception {
         final StringBuffer sb = new StringBuffer();
         InputStream im = null;
@@ -1089,20 +907,30 @@ public class DBManager
         }
         return sb.toString();
     }
-    
+
     public ArrayList<EmsMetaData> getArrayListMeta() {
         return this.metaHash;
     }
-    
+
     private void connClose(final Connection con) {
+
+        this.log.debug((Object)("connClose(); \uc804 " + this.ds));
+        this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
+
+
         try {
             con.close();
         }
         catch (Exception e) {
             e.printStackTrace();
+        }finally {
+
+        	 this.log.debug((Object)("connClose(); \ud6c4 " + this.ds));
+             this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
+
         }
     }
-    
+
     public static void main(final String[] args) {
     }
 }
