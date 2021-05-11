@@ -1,6 +1,6 @@
-// 
+//
 // Decompiled by Procyon v0.5.36
-// 
+//
 
 package com.ems.common.util;
 
@@ -15,16 +15,16 @@ import java.util.Calendar;
 public class EmsDateUtil
 {
     private static Calendar date;
-    
+
     static {
         EmsDateUtil.date = Calendar.getInstance();
     }
-    
+
     public static String getYear() {
         final int goc = new GregorianCalendar().get(1);
         return Integer.toString(goc);
     }
-    
+
     public static String getMonth() {
         String m_Month = Integer.toString(new GregorianCalendar().get(2) + 1);
         if (m_Month.length() == 1) {
@@ -32,7 +32,7 @@ public class EmsDateUtil
         }
         return m_Month;
     }
-    
+
     public static String getDay() {
         String m_Day = Integer.toString(new GregorianCalendar().get(5));
         if (m_Day.length() == 1) {
@@ -40,7 +40,7 @@ public class EmsDateUtil
         }
         return m_Day;
     }
-    
+
     public static String addDay(final int nowDate, final int gap, String frm) {
         if (frm != null && frm.equals("")) {
             frm = "yyyyMMdd";
@@ -59,11 +59,11 @@ public class EmsDateUtil
         format.setTimeZone(timeZone);
         return format.format(date.getTime());
     }
-    
+
     public static String addDay(final String nowDate, final int gap, final String frm) {
         return addDay(Integer.parseInt(nowDate.replaceAll("-", "")), gap, frm);
     }
-    
+
     public static String getLastDateAtMonth(final int yyyy, final int mm) {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(yyyy, mm - 1, 1);
@@ -72,12 +72,12 @@ public class EmsDateUtil
         final int date = calendar.get(5);
         return EmsNumberUtil.format(date, "00");
     }
-    
+
     public static String getLastDateAtMonth(final String yyyy, final String mm) {
         final String ss = getLastDateAtMonth(Integer.parseInt(yyyy), Integer.parseInt(mm));
         return ss;
     }
-    
+
     public static String getTimeStampString(final String format) {
         final int millisPerHour = 3600000;
         final SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -85,17 +85,17 @@ public class EmsDateUtil
         sdf.setTimeZone(timeZone);
         return sdf.format(new Date(System.currentTimeMillis()));
     }
-    
+
     public static String getCurrentDate(final String fmt) {
         return getTimeStampString(fmt);
     }
-    
+
     public static String getCurrentDate(final String fmt, final int day) {
         final String today = getCurrentDate("yyyyMMdd");
         final String addDay = addDay(today, day, fmt);
         return addDay;
     }
-    
+
     public static String getCurrentDate(final String fmt, final Date date) {
         String stringDate = "";
         try {
@@ -108,11 +108,11 @@ public class EmsDateUtil
         catch (Exception ex) {}
         return stringDate;
     }
-    
+
     public static String getCurrentDate(final String fmt, final String date) {
         return getCurrentDate(fmt, date, Locale.KOREA);
     }
-    
+
     public static String getCurrentDate(final String fmt, final String date, final Locale lo) {
         String stringDate = "";
         if (date.length() == 8) {
@@ -121,21 +121,24 @@ public class EmsDateUtil
             final int day = Integer.parseInt(date.substring(6, 8));
             final Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, day);
+
             try {
                 final int millisPerHour = 3600000;
                 final SimpleDateFormat format = new SimpleDateFormat(fmt);
                 final SimpleTimeZone timeZone = new SimpleTimeZone(9 * millisPerHour, "Asia/Seoul");
                 format.setTimeZone(timeZone);
-                stringDate = format.format(date);
+                stringDate = format.format(calendar.getTime());
             }
-            catch (Exception ex) {}
+            catch (Exception ex) {
+            	ex.printStackTrace();
+            }
         }
         else {
             stringDate = date;
         }
         return stringDate;
     }
-    
+
     public static String addMonths(final String day, final int monthGap, final String frm) {
         final Calendar utilDate = Calendar.getInstance();
         final SimpleDateFormat sdf_out = new SimpleDateFormat(frm);
@@ -146,13 +149,13 @@ public class EmsDateUtil
         final String preFix = sdf_out.format(utilDate.getTime());
         return preFix;
     }
-    
+
     public static String getDate(final int year, final int month, final int day) {
         final Calendar utilDate = Calendar.getInstance();
         utilDate.set(year, month - 1, day);
         return getCurrentDate("E", utilDate.getTime());
     }
-    
+
     public static int getDiffDay(String startDay, String endDay) {
         startDay = startDay.replace("-", "");
         endDay = endDay.replace("-", "");
@@ -170,11 +173,11 @@ public class EmsDateUtil
         final long diffday = diff / 86400000L;
         return (int)diffday;
     }
-    
+
     public static int getDiffDay(final int startDay, final int endDay) {
         return getDiffDay(new StringBuilder().append(startDay).toString(), new StringBuilder().append(endDay).toString());
     }
-    
+
     public static String getmmm(final String mmm) {
         final EmsHashtable map = new EmsHashtable();
         map.put("JAN", "01");
@@ -191,7 +194,7 @@ public class EmsDateUtil
         map.put("DEC", "12");
         return map.getString(mmm);
     }
-    
+
     public static String getMMM(final String mmm) {
         final EmsHashtable map = new EmsHashtable();
         map.put("01", "JAN");
@@ -208,7 +211,7 @@ public class EmsDateUtil
         map.put("12", "DEC");
         return map.getString(mmm);
     }
-    
+
     public static void main(final String[] args) {
         System.out.println(getDiffDay("2016-11-01", "2016-10-01"));
     }
