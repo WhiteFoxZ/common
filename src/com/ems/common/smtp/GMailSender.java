@@ -16,7 +16,11 @@ import javax.mail.Authenticator;
 import javax.mail.Session;
 import java.util.Properties;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.apache.log4j.Logger;
+
+import sun.net.util.IPAddressUtil;
 
 public class GMailSender
 {
@@ -52,9 +56,17 @@ public class GMailSender
      */
     public void mailSender(final String fromName , final String subject, final String to,  String content) {
 
-    	osName="linux";
+    	InetAddress ip=null;
 
-        if (osName.equals("Windows 10")) {
+    	try {
+			 ip = InetAddress.getLocalHost();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+    	//윈도우에서는 보내지 않는다, 단 집에서는 보낸다.
+        if (osName.equals("Windows 10")	&& !ip.toString().contains("192.168.0") ) {
             this.log.debug("개발계입니다.실제 메일을 보내지 않습니다.");
             this.log.debug(("받는사람 : " + to));
             this.log.debug(("제목 : " + subject));
@@ -105,7 +117,17 @@ public class GMailSender
     }
 
     public static void main(final String[] args) throws Exception {
-        new GMailSender().mailSender("테스트","hello", "fmjj007@naver.com", "hello");
+//        new GMailSender().mailSender("테스트","hello", "fmjj007@naver.com", "hello");
+
+    	InetAddress ip = InetAddress.getLocalHost();
+
+    	System.out.println(ip.toString().contains("192.168.0"));
+    	System.out.println(ip.toString().contains("192.167.0"));
+
+
+
+
+
     }
 
 }
