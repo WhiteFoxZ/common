@@ -46,16 +46,7 @@ public class GMailSender
 
 
 
-
-    /**
-     *
-     * @param fromName 예약시스템관리자 , \uc608\uc57d\uc2dc\uc2a4\ud15c\uad00\ub9ac\uc790
-     * @param subject
-     * @param to
-     * @param content
-     */
-    public void mailSender(final String fromName , final String subject, final String to,  String content) {
-
+    public void mailSender(final String fromName , final String subject, final String to,  String content, boolean html) {
     	InetAddress ip=null;
 
     	try {
@@ -97,15 +88,21 @@ public class GMailSender
                 msg.setRecipients(Message.RecipientType.TO, (Address[])address);
                 msg.setSubject(subject);
                 msg.setSentDate(new Date());
+
                 msg.setHeader("Content-Type", "text/html;charset=UTF-8");
 
-                content = content.replaceAll("\n", "<br/>");
 
-                msg.setContent(content, "text/html;charset=UTF-8");
+                if(html) {
+                	content = content.replaceAll("\n", "<br/>");
+                    msg.setContent(content, "text/html;charset=UTF-8");
+                }
+
+                msg.setText(content);
+
 
                 Transport.send(msg);
 
-                this.log.debug("메일 발송을 완료하였습니다."); //\uba54\uc77c \ubc1c\uc1a1\uc744 \uc644\ub8cc\ud558\uc600\uc2b5\ub2c8\ub2e4.
+                this.log.debug("메일 발송을 완료하였습니다.");
             }
             catch (MessagingException ex) {
             	this.log.error("mail send error : " + ex.getMessage());
@@ -116,6 +113,17 @@ public class GMailSender
         }
     }
 
+    /**
+     *
+     * @param fromName 예약시스템관리자 , \uc608\uc57d\uc2dc\uc2a4\ud15c\uad00\ub9ac\uc790
+     * @param subject
+     * @param to
+     * @param content
+     */
+    public void mailSender(final String fromName , final String subject, final String to,  String content) {
+    	mailSender(fromName,subject,to,content,true);
+    }
+
     public static void main(final String[] args) throws Exception {
 //        new GMailSender().mailSender("테스트","hello", "fmjj007@naver.com", "hello");
 
@@ -123,10 +131,6 @@ public class GMailSender
 
     	System.out.println(ip.toString().contains("192.168.0"));
     	System.out.println(ip.toString().contains("192.167.0"));
-
-
-
-
 
     }
 

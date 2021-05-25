@@ -914,8 +914,8 @@ public class DBManager
 
     private void connClose(final Connection con) {
 
-        this.log.debug((Object)("connClose(); \uc804 " + this.ds));
-        this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
+//        this.log.debug((Object)("connClose(); \uc804 " + this.ds));
+//        this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
 
 
         try {
@@ -925,8 +925,8 @@ public class DBManager
             e.printStackTrace();
         }finally {
 
-        	 this.log.debug((Object)("connClose(); \ud6c4 " + this.ds));
-             this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
+//        	 this.log.debug((Object)("connClose(); \ud6c4 " + this.ds));
+//             this.log.debug((Object)("connClose \uc815\ubcf4 ===> " + con));
 
         }
     }
