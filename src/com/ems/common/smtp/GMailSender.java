@@ -18,6 +18,7 @@ import java.util.Properties;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import sun.net.util.IPAddressUtil;
@@ -89,15 +90,21 @@ public class GMailSender
                 msg.setSubject(subject);
                 msg.setSentDate(new Date());
 
-                msg.setHeader("Content-Type", "text/html;charset=UTF-8");
-
 
                 if(html) {
-                	content = content.replaceAll("\n", "<br/>");
+                	msg.setHeader("Content-Type", "text/html;charset=UTF-8");
+                	this.log.debug("before : "+content);
+                	content = StringEscapeUtils.escapeHtml4(content);
+                	this.log.debug("after"+content);
+                	this.log.debug("orign"+StringEscapeUtils.unescapeHtml3(content));
+
+
                     msg.setContent(content, "text/html;charset=UTF-8");
+                }else {
+                	msg.setText(content);
                 }
 
-                msg.setText(content);
+
 
 
                 Transport.send(msg);
