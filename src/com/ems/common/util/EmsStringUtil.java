@@ -1,8 +1,14 @@
-// 
+//
 // Decompiled by Procyon v0.5.36
-// 
+//
 
 package com.ems.common.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.text.translate.LookupTranslator;
 
 public class EmsStringUtil
 {
@@ -15,13 +21,18 @@ public class EmsStringUtil
         }
         return returnVal.toString();
     }
-    
-    public static String gahang(final String org) {
-        return org.replaceAll("&", "&amp;").replaceAll("<", "&lt").replaceAll(">", "&gt").replaceAll(" ", "&nbsp;").replaceAll("\"", "&quot").replaceAll("\\r\\n", "<BR>");
+
+    public static String gahangBR(final String org) {
+        return org. replaceAll("(\r\n|\r|\n|\n\r)", "</br>");
     }
-    
+
     public static void main(final String[] args) {
         final String BudgetName = "2008_4Q";
         System.out.println(String.valueOf(BudgetName.substring(2, 4)) + "_Q" + BudgetName.substring(5, 6) + "(S)");
     }
+
+
+
+
+
 }
