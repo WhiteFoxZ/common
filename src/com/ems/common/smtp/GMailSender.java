@@ -76,7 +76,7 @@ public class GMailSender {
 
                 final MyAuthenticator auth = new MyAuthenticator("bookseei@naver.com", "kim0525486#");
                 this.log.debug(auth.toString());
-                final Session mailSession = Session.getDefaultInstance(props, (Authenticator)auth);
+                final Session mailSession = Session.getInstance(props, (Authenticator)auth);
                 final Message msg = (Message)new MimeMessage(mailSession);
                 msg.setFrom((Address)new InternetAddress(S_FROM, MimeUtility.encodeText(fromName, "UTF-8", "B")));
 
