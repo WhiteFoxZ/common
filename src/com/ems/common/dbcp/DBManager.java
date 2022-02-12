@@ -782,7 +782,7 @@ public class DBManager
         try {
             if (con != null) {
                 con.commit();
-                this.log.debug((Object)"\n***********************\ncommit success\n*******************");
+                this.log.debug((Object)"\n*******************\ncommit success\n*******************");
             }
             else {
                 this.log.debug((Object)"Connection is null");
