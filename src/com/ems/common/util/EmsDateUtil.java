@@ -4,13 +4,15 @@
 
 package com.ems.common.util;
 
-import java.util.Locale;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.SimpleTimeZone;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 public class EmsDateUtil
 {
@@ -139,6 +141,35 @@ public class EmsDateUtil
         return stringDate;
     }
 
+    /**
+     *
+     * @param date
+     * @param style TextStyle.FULL, TextStyle.NARROW
+     * @return
+     */
+    public static String getCurrentDate(final String date, TextStyle style) {
+    	String stringDate = "";
+
+    	 if (date.length() == 8) {
+             final int year = Integer.parseInt(date.substring(0, 4));
+             final int month = Integer.parseInt(date.substring(4, 6));
+             final int day = Integer.parseInt(date.substring(6, 8));
+
+             LocalDate dateLoca = LocalDate.of(year, month, day);
+
+             DayOfWeek dayOfWeek = dateLoca.getDayOfWeek();
+
+             stringDate= dayOfWeek.getDisplayName(style, Locale.KOREAN);
+
+         }
+         else {
+             stringDate = date;
+         }
+         return stringDate;
+
+
+    }
+
     public static String addMonths(final String day, final int monthGap, final String frm) {
         final Calendar utilDate = Calendar.getInstance();
         final SimpleDateFormat sdf_out = new SimpleDateFormat(frm);
@@ -213,6 +244,6 @@ public class EmsDateUtil
     }
 
     public static void main(final String[] args) {
-        System.out.println(getDiffDay("2016-11-01", "2016-10-01"));
+        System.out.println(getCurrentDate("20221101",TextStyle.FULL));
     }
 }

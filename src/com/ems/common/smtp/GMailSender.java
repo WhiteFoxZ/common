@@ -19,21 +19,20 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import com.ems.common.util.EmsStringUtil;
 
 public class GMailSender {
-	private Logger log;
+
+	private static Logger log = Logger.getLogger(GMailSender.class.getName());
+
 	private static final String S_HOST = "smtp.naver.com";
 	private static final String S_FROM = "bookseei@naver.com";
 
 	private String osName = null;
 
 	public GMailSender() {
-
-		this.log = Logger.getLogger((Class) this.getClass());
 
 		Properties pr = System.getProperties();
 
